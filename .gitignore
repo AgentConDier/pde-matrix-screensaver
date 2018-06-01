@@ -1,5 +1,6 @@
 icon-*.png
 application.windows*/
 Screensaver/matrix.scr
-Screensaver/matrix
+Screensaver/matrix/
 nojava_*/
+data/config.txt
