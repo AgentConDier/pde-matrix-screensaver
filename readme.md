@@ -7,6 +7,7 @@ A screensaver that looks somewhat like that famous scene. Done in processing. I 
 * multi-screen support
 * You can add a border on the right and/or left, for example to only display it on one screen
 * non-intrusive update checking
+* Uses a katakana font. Not sure if that is canon, but it looks cool
 ## Installation
 I'll post a release soon, but you can also put it together yourself:
 ### Processing
