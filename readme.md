@@ -1,6 +1,6 @@
 # Matrix-Screensaver
 A screensaver that looks somewhat like that famous scene. Done in processing. I know it isn't the first of of kind, but it also serves as an example on how to create windows screensavers using processing. It looks somewhat like this:
-![matrix.gif](https://i.imgur.com/7sI1Pom.gifv)
+![matrix.gif](https://s2.imagebanana.com/file/180602/21sp0XTE.gif)
 ## Features
 * The screensaver can be installed and configured by right-clicking like you'd expect
 * It allows aou to edit a lot of values changing how it looks
