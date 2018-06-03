@@ -1,6 +1,5 @@
 # Matrix-Screensaver
-A screensaver that looks somewhat like that famous scene. Done in processing. I know it isn't the first of of kind, but it also serves as an example on how to create windows screensavers using processing. It looks somewhat like this:
-[matrix.gif](https://s2.imagebanana.com/file/180602/21sp0XTE.gif)
+A screensaver that looks somewhat like that famous scene. Done in processing. I know it isn't the first of of kind, but it also serves as an example on how to create windows screensavers using processing. It looks somewhat like this: [matrix.gif](https://s2.imagebanana.com/file/180602/21sp0XTE.gif)
 ## Features
 * The screensaver can be installed and configured by right-clicking like you'd expect
 * It allows aou to edit a lot of values changing how it looks
@@ -15,7 +14,7 @@ I'll post a release soon, but you can also put it together yourself:
 2. (Optional) Run it once to generate the `data/config.txt` if you want to include it
 3. Compile it using processing for Windows x64
 ### Making a screensaver
-The screensaver executable is written in autoHotkey which you need to install for this.
+The screensaver executable is written in autoHotkey which you need to install in order to compile it.
 Note: The autoHotkey script currently only works on x64 operating systems
 1. Compile the `Screensaver/matrix.ahk` using autoHotkey.
 2. Rename the generated `matrix.exe` to `matrix.scr`
