@@ -2,11 +2,11 @@ void checkUpdate() {
   String updateCheckUrl = "http://darnok2221.no-ip.biz/matrix/updateInfo.json";
   
   println("Checking for updates...");
-  String[] test = loadStrings(updateCheckUrl);
-  if (test == null) {
+  String[] data = loadStrings(updateCheckUrl);
+  if (data == null) {
     println("Unable to fetch update info!");
   } else {
-    JSONObject updateInfo = loadJSONObject(updateCheckUrl);
+    JSONObject updateInfo = parseJSONObject(data[0]); // Note: this requires all the contents of updateInfo.json to be in the first line
     int latestVersion = updateInfo.getInt("version");
     String updateMessage = updateInfo.getString("message");
     updateMessage = updateMessage.replace("%currentVersion%", str(version));

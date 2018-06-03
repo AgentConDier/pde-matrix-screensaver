@@ -6,7 +6,7 @@ PFont humanReadableFont;
 int colWidth;
 int lineHeight = 25;
 int particleTailLength = 35;
-int xOffset = 0; // Beispiel 1920: linker Bildschirm (1920px breit) wird ignoriert
+int xOffset = 0; // For example 1920: left screen with width of 1920px is left blank
 int xMax = 0;
 float minSpeed = 0.3;
 float maxSpeed = 1.7;
@@ -39,7 +39,6 @@ void setup() {
   if (checkUpdate) {
     thread("checkUpdate");
   }
-  //saveConf();
 }
 
 void draw() {
@@ -48,7 +47,6 @@ void draw() {
     particles[i].tick();
   }
   
-  //println(frameRate+" fps");
   checkMouse();
 }
 

@@ -1,5 +1,5 @@
-/** Einstellungen
-    '- Funktionen zum Laden und speichern der folgenden Variablen:
+/** Configuration
+    '- Functions for loading and saving the following variables to data/config.txt:
 + version
 + checkUpdate
 + lineHeight
@@ -13,7 +13,7 @@
 + particleVitality
 + endOnMouse
 + endOnKey
-+ version (verwendet zum Erneuern der Konfigurationsdatei bei einem Update)
++ version (used determine if the config file has to be updated)
 */
 
 void loadConf() {
@@ -23,9 +23,12 @@ void loadConf() {
     saveConf();
   } else {
     boolean versionMatch = false;
-    for (int i = 0; i < data.length; i++) {
-      while (data[i].startsWith("#") || trim(data[i].value).equals("")) {
+    readConfig: for (int i = 0; i < data.length; i++) {
+      while (data[i].startsWith("#") || trim(data[i].value).equals("")) { // skip comments and empty lines
         i++;
+        if (i >= data.length) { // necessary if the config ends on a comment to prevent arrayIndex outOfBounds
+          break readConfig;
+        }
       }
       
       if (data[i].startsWith("lineHeight")) {
@@ -55,12 +58,12 @@ void loadConf() {
       } else if (data[i].startsWith("checkUpdate")) {
         checkUpdate = boolean(data[i].rest);
       } else {
-        println("Warnung! Zeile "+(i+1)+" in data/config.txt wurde nicht erkannt:\n"+data[i].value);
+        println("Warning! Line "+(i+1)+" in data/config.txt was not recognized:\n"+data[i].value);
       }
     }
     if (!versionMatch) {
       println("Config version does not match program version. Updating config file...");
-      saveConf();
+      saveConf(); // rewrites the config file, but uses values from previous config where applicable
     }
   }
 }
@@ -68,34 +71,34 @@ void loadConf() {
 void saveConf() {
   String[] data =
   {
-    "# Version dieser Konfigurationsdatei",
+    "# Version of this settings file",
     "version           "+version,"",
-    "# Nach updates suchen? [true]",
+    "# Check for updates? [true]",
     "checkUpdate       "+checkUpdate,"",
-    "# Größe der Zeichen [25]",
+    "# Character size [25]",
     "lineHeight        "+lineHeight,"",
-    "# Anzahl an Zeichen, die auf das erste folgen,",
-    "# bis sie verblasst sind (bei einer Geschwindigkeit von 1) [35]",
+    "# Amount of characters visible after the first one",
+    "# (at a speed of 1) [35]",
     "tailLength        "+particleTailLength,"",
-    "# Kleinste mögliche Geschwindigkeit (Zeichen pro Bild) [0.3]",
+    "# Minimum speed (in characters/frame) [0.3]",
     "minSpeed          "+minSpeed,"",
-    "# Größte mögliche Geschwindigkeit [1.7]",
+    "# Maximum speed [1.7]",
     "maxSpeed          "+maxSpeed,"",
-    "# Breite des Randes am linken Bildschirm(-rand) [0]",
+    "# Amount of pixels to leave blank from the left [0]",
     "xOffset           "+xOffset,"",
-    "# Breite des Randes an rechten Bildschirm(-rand) [0]",
+    "# Amount of pixels to leave blank from the right [0]",
     "xMax              "+xMax,"",
-    "# Anzahl an Partikeln [45]",
+    "# Amount of particles [45]",
     "particleCount     "+particleCount,"",
-    "# Je kleiner dieser Wert, je öfter wechselt der Buchstabe",
-    "# (-1 zum Ausschalten) [15]",
+    "# 1/particleStability chance for a character to change",
+    "# (-1 to disable) [15]",
     "particleStability "+particleStability,"",
-    "# Je kleiner dieser Wert, je öfter entstehen neue Partikel",
-    "# (und alte verschwinden) (-1 zum Ausschalten) [90]",
+    "# 1/particleVitality chance for a particle to reappear somewhere else",
+    "# (und alte verschwinden) (-1 to disable) [90]",
     "particleVitality  "+particleVitality,"",
-    "# Mausbewegung beendet das Programm [true]",
+    "# Exit screensaver by moving the mouse? [true]",
     "endOnMouse        "+endOnMouse,"",
-    "# Tastatur beendet das Programm (Esc funktioniert immer) [true]",
+    "# Exit screensaver by pressing a key (Escape will always work) [true]",
     "endOnKey          "+endOnKey
   };
   
@@ -103,23 +106,24 @@ void saveConf() {
   println("Done.");
 }
 
-static class Compare {
+static class Compare { // used for easily detecting config parameters and extracting their values 
   String value;
   String rest;
   Compare(String in) {
     value = in;
+    if (!value.equals("") && value != null) {
+      if (int(value.charAt(0)) == 65279) { // It appears that editing the file in notepad etc. causes this to be the first character of the file.
+        value = value.substring(1);        // I'm removing it because it can prevent the first line from being recognized as a comment
+      }
+    }
     rest = value;
   }
   boolean startsWith(String s) {
-    //println("\""+value+"\".startsWith(\""+s+"\")");
     if (value.length() >= s.length()) {
       rest = trim(value.substring(s.length()));
-      //println("\""+s+"\" == \""+value.substring(0, s.length())+"\"   ("+(s.equals(value.substring(0, s.length())))+")");
-      //println("rest = "+rest+"\n");
       return (s.equals(value.substring(0, s.length())));
     } else {
       rest = null;
-      //println("rest = "+rest+"\n");
       return false;
     }
   }
