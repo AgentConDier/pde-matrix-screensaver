@@ -12,10 +12,10 @@ I'll post a release soon, but you can also put it together yourself:
 ### Processing
 1. Download the source code and open `matrix.pde` in the processing ide
 2. (Optional) Run it once to generate the `data/config.txt` if you want to include it
-3. Compile it using processing for Windows x64
+3. Compile it for Windows x64 using processing
 ### Making a screensaver
 The screensaver executable is written in autoHotkey which you need to install in order to compile it.
-Note: The autoHotkey script currently only works on x64 operating systems
+Note: The autoHotkey script currently only works with the compiled jarfiles for x64 operating systems
 1. Compile the `Screensaver/matrix.ahk` using autoHotkey.
 2. Rename the generated `matrix.exe` to `matrix.scr`
 3. Copy `application.windows64/data` and `application.windows64/lib` to `Screensaver/matrix`
